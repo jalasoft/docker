@@ -1,0 +1,26 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  mongo:
+    image: "mongo"
+    ports:
+            - "27017:27017"
+    volumes:
+            - mongo_db:/data/db
+            - mongo_config:/data/configdb
+  exporter:
+    image: percona/mongodb_exporter:0.30.0
+    command: --mongodb.uri=mongodb://mongo:27017
+    ports:
+      - "9216:9216"
+      - "17001:17001"
+  prometheus:
+    build: 
+       context: .
+       dockerfile: prometheus.docker
+    ports:
+      - "9090:9090"
+volumes:
+    mongo_db:
+        external: true
+    mongo_config:
+        external: true

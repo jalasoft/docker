@@ -1,0 +1,24 @@
+version: "3"
+services:
+  jcr:
+    image: docker.bintray.io/jfrog/artifactory-jcr
+    ports:
+      - "8081:8081"
+      - "8082:8082"
+    volumes:
+      - jcr_volume:/var/opt/jfrog/artifactory
+  proxy:
+    image: ci_proxy
+    ports:
+      - "443:443"
+  jenkins:
+    image: ci_jenkins
+    ports:
+      - "8080:8080"
+    volumes:
+      - "jenkins_home_volume:/var/jenkins_home"
+      - "jenkins_m2_volume:/root/.m2"
+volumes:
+  jcr_volume:
+  jenkins_home_volume:
+  jenkins_m2_volume:

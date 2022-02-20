@@ -1,0 +1,13 @@
+version: "3"
+services:
+   jenkins:
+      image: ci_jenkins
+      ports:
+         - 8080:8080
+      volumes:
+         - jenkins_vol:/var/jenkins_home
+         - mvn_vol:/root/.m2
+         - /var/run/docker.sock:/var/run/docker.sock
+volumes:
+  jenkins_vol:
+  mvn_vol:
